@@ -90,5 +90,16 @@ public class Restaurant {
         currentTime = LocalTime.of(hours,min,sec);
     }
 
-
+    public int getTotalCostOfOrder(List<Item> selectedItemsFromMenu) throws selectedItemsIsEmptyException
+    {
+        if(selectedItemsFromMenu == null)
+            throw new selectedItemsIsEmptyException("The list of selected items is empty");
+        
+        int total = 0;
+        for(Item i : selectedItemsFromMenu)
+        {
+            total += i.getPrice();
+        }
+        return total;
+    }
 }

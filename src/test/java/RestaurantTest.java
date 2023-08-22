@@ -7,6 +7,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RestaurantTest {
@@ -20,6 +21,7 @@ class RestaurantTest {
         restaurant =new Restaurant("Amelie's cafe","Chennai",openingTime,closingTime);
         restaurant.addToMenu("Sweet corn soup",119);
         restaurant.addToMenu("Vegetable lasagne", 269);
+        restaurant.addToMenu("Red Velvet Cupcake", 100);
     }
 
     //>>>>>>>>>>>>>>>>>>>>>>>>>OPEN/CLOSED<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -63,7 +65,7 @@ class RestaurantTest {
     //<<<<<<<<<<<<<<<<<<<<<<<MENU>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
     @Test
-    public void check_total_cost_of_selected_items_is_the_expected_value()
+    public void check_total_cost_of_selected_items_is_the_expected_value() throws selectedItemsIsEmptyException
     {
         List<Item> selectedItemsFromMenu = new ArrayList<>();
         List<Item> menuItems = restaurant.getMenu();
@@ -72,13 +74,14 @@ class RestaurantTest {
         selectedItemsFromMenu.add(menuItems.get(2));
 
         int total = restaurant.getTotalCostOfOrder(selectedItemsFromMenu);
+        assertEquals(total,(119+100));
     }
     @Test
     public void check_total_when_nothing_is_selected_should_throw_exception() throws selectedItemsIsEmptyException
     {
         List<Item> selectedItems = new ArrayList<>();
-
-        int total = restaurant.getTotalCostOfOrder(selectedItems);
+        assertThrows(selectedItemsIsEmptyException.class,
+                ()->restaurant.getTotalCostOfOrder(null));
 
     }
 }

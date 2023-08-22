@@ -6,8 +6,17 @@ public class RestaurantService {
     private static List<Restaurant> restaurants = new ArrayList<>();
 
     public Restaurant findRestaurantByName(String restaurantName){
-        return null;
+
         //DELETE ABOVE STATEMENT AND WRITE CODE HERE
+        for(Restaurant r : restaurants)
+        {
+            if(restaurantName.equalsIgnoreCase(r.getName()))
+            {
+                return r;
+            }
+        }
+
+        return null;
     }
 
 
@@ -19,6 +28,9 @@ public class RestaurantService {
 
     public Restaurant removeRestaurant(String restaurantName) throws restaurantNotFoundException {
         Restaurant restaurantToBeRemoved = findRestaurantByName(restaurantName);
+        if(restaurantToBeRemoved == null)
+            throw new restaurantNotFoundException("Removing a restaurant that does not exist :"+restaurantName);
+
         restaurants.remove(restaurantToBeRemoved);
         return restaurantToBeRemoved;
     }

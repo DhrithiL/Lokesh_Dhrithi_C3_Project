@@ -10,6 +10,8 @@ public class Restaurant {
     public LocalTime closingTime;
     private List<Item> menu = new ArrayList<Item>();
 
+    private LocalTime  currentTime = null;
+
     public Restaurant(String name, String location, LocalTime openingTime, LocalTime closingTime) {
         this.name = name;
         this.location = location;
@@ -18,15 +20,35 @@ public class Restaurant {
     }
 
     public boolean isRestaurantOpen() {
-        return true;
+
         //DELETE ABOVE STATEMENT AND WRITE CODE HERE
+        if(currentTime == null)
+        {
+            currentTime = getCurrentTime();
+        }
+
+        int i = openingTime.compareTo(currentTime);
+        int j = closingTime.compareTo(currentTime);
+
+        if( currentTime.isBefore(closingTime) && currentTime.isAfter(openingTime))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
     }
 
-    public LocalTime getCurrentTime(){ return  LocalTime.now(); }
+    public LocalTime getCurrentTime(){
+        return  LocalTime.now();
+    }
 
     public List<Item> getMenu() {
-        return null;
+
         //DELETE ABOVE RETURN STATEMENT AND WRITE CODE HERE
+        return menu;
     }
 
     private Item findItemByName(String itemName){
@@ -61,6 +83,11 @@ public class Restaurant {
 
     public String getName() {
         return name;
+    }
+
+    public void setCurrentTime(int hours,int min,int sec)
+    {
+        currentTime = LocalTime.of(hours,min,sec);
     }
 
 }

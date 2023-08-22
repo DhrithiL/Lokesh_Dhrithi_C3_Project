@@ -62,7 +62,6 @@ class RestaurantTest {
     }
     //<<<<<<<<<<<<<<<<<<<<<<<MENU>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-
     @Test
     public void check_total_cost_of_selected_items_is_the_expected_value()
     {

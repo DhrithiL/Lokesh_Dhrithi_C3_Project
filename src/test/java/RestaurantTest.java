@@ -4,6 +4,8 @@ import org.junit.jupiter.api.parallel.ResourceAccessMode;
 import org.mockito.Mockito;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -59,4 +61,30 @@ class RestaurantTest {
                 ()->restaurant.removeFromMenu("French fries"));
     }
     //<<<<<<<<<<<<<<<<<<<<<<<MENU>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+    @Test
+    public void select_the_items_to_order(List<Item> itemsFromMenu)
+    {
+        restaurant.setSelectedItems = itemsFromMenu;
+    }
+    @Test
+    public void check_total_cost_of_selected_items_is_the_expected_value()
+    {
+        List<Item> selectedItemsFromMenu = new ArrayList<>();
+        List<Item> menuItems = restaurant.getMenu();
+
+        selectedItemsFromMenu.add(menuItems.get(0));
+        selectedItemsFromMenu.add(menuItems.get(2));
+
+        int total = restaurant.getTotalCostOfOrder(selectedItemsFromMenu);
+    }
+    @Test
+    public void check_total_when_nothing_is_selected_should_throw_exception() throws selectedItemsIsEmptyException
+    {
+        List<Item> selectedItems = new ArrayList<>();
+
+        int total = restaurant.getTotalCostOfOrder(selectedItems);
+
+    }
 }
